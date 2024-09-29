@@ -9,6 +9,7 @@ from tqdm import tqdm
 from concurrent.futures import ProcessPoolExecutor
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime 
+from django.utils.timezone import make_aware
 from django.db import connection
 
 from quality_checks.models import *  # Import the correct model
@@ -129,7 +130,212 @@ class Command(BaseCommand):
             self.import_reporting(participant_obj, participant_folder)
 
 
-            
+    def import_sleep(self, participant_obj, participant_folder):
+        file_path = os.path.join(participant_folder, 'Fitbit', 'sleep.json')
+
+        if not os.path.exists(file_path):
+            self.stdout.write(self.style.WARNING(f'Skipping missing file: {file_path}'))
+            return
+
+        with open(file_path, 'r') as json_file:
+            data = json.load(json_file)
+
+        for entry in data:
+            try:
+                # Use get_or_create for the main SleepLog
+                sleep_log, created = SleepLog.objects.get_or_create(
+                    participant=participant_obj,
+                    logId=entry['logId'],
+                    defaults={
+                        'dateOfSleep': entry['dateOfSleep'],
+                        'startTime': entry['startTime'],
+                        'endTime': entry['endTime'],
+                        'duration': entry['duration'],
+                        'minutesToFallAsleep': entry['minutesToFallAsleep'],
+                        'minutesAsleep': entry['minutesAsleep'],
+                        'minutesAwake': entry['minutesAwake'],
+                        'minutesAfterWakeup': entry['minutesAfterWakeup'],
+                        'timeInBed': entry['timeInBed'],
+                        'efficiency': entry['efficiency'],
+                        'sleep_type': entry['type'],
+                        'infoCode': entry['infoCode'],
+                        'mainSleep': entry['mainSleep']
+                    }
+                )
+
+                # Only create related records if this is a new sleep log entry
+                if created:
+                    # Process the sleep summary (if present)
+                    if 'summary' in entry['levels']:
+                        summary = entry['levels']['summary']
+                        SleepLevelSummary.objects.create(
+                            sleep_log=sleep_log,
+                            deep_count=summary.get('deep', {}).get('count', 0),
+                            deep_minutes=summary.get('deep', {}).get('minutes', 0),
+                            deep_thirty_day_avg_minutes=summary.get('deep', {}).get('thirtyDayAvgMinutes', 0),
+                            wake_count=summary.get('wake', {}).get('count', 0),
+                            wake_minutes=summary.get('wake', {}).get('minutes', 0),
+                            wake_thirty_day_avg_minutes=summary.get('wake', {}).get('thirtyDayAvgMinutes', 0),
+                            light_count=summary.get('light', {}).get('count', 0),
+                            light_minutes=summary.get('light', {}).get('minutes', 0),
+                            light_thirty_day_avg_minutes=summary.get('light', {}).get('thirtyDayAvgMinutes', 0),
+                            rem_count=summary.get('rem', {}).get('count', 0),
+                            rem_minutes=summary.get('rem', {}).get('minutes', 0),
+                            rem_thirty_day_avg_minutes=summary.get('rem', {}).get('thirtyDayAvgMinutes', 0)
+                        )
+
+                    # Process sleep level data
+                    for level_data in entry['levels']['data']:
+                        SleepLevelData.objects.get_or_create(
+                            sleep_log=sleep_log,
+                            dateTime=level_data['dateTime'],
+                            level=level_data['level'],
+                            defaults={'seconds': level_data['seconds']}
+                        )
+
+                    # Process short sleep data if present
+                    if 'shortData' in entry['levels']:
+                        for short_data in entry['levels']['shortData']:
+                            SleepShortData.objects.get_or_create(
+                                sleep_log=sleep_log,
+                                dateTime=short_data['dateTime'],
+                                level=short_data['level'],
+                                defaults={'seconds': short_data['seconds']}
+                            )
+
+            except Exception as e:
+                self.stdout.write(self.style.ERROR(f"Error processing sleep log for {participant_obj.participant_id}: {e}"))
+
+        self.stdout.write(self.style.SUCCESS(f'Imported sleep data for {participant_obj.participant_id}'))
+        
+
+
+
+
+    
+
+   
+    
+
+
+
+
+    
+    
+    
+
+    def import_exercise(self, participant_obj, participant_folder):
+        file_path = os.path.join(participant_folder, 'Fitbit', 'exercise.json')
+
+        if not os.path.exists(file_path):
+            self.stdout.write(self.style.WARNING(f'Skipping missing file: {file_path}'))
+            return
+
+        with open(file_path, 'r') as json_file:
+            data = json.load(json_file)
+
+        # Define a helper function to parse timezone-aware datetimes with multiple formats
+        def parse_timezone_aware_datetime(dt_str):
+            if dt_str:
+                formats = [
+                    '%Y-%m-%dT%H:%M:%S.%f',  # ISO format with milliseconds
+                    '%m/%d/%y %H:%M:%S',      # Format seen in earlier error
+                    '%Y-%m-%d %H:%M:%S'       # Format without milliseconds and timezone
+                ]
+                for fmt in formats:
+                    try:
+                        naive_dt = datetime.strptime(dt_str, fmt)
+                        return make_aware(naive_dt)  # Convert to timezone-aware datetime
+                    except ValueError:
+                        continue  # Try the next format
+                raise ValueError(f"Time data '{dt_str}' does not match any expected formats")
+            return None
+
+        for entry in data:
+            try:
+                # Handle missing averageHeartRate
+                average_heart_rate = entry.get('averageHeartRate', None)
+                if average_heart_rate is None:
+                    self.stdout.write(self.style.WARNING(f"Missing 'averageHeartRate' for {participant_obj.participant_id}, logId: {entry['logId']}"))
+                
+                # Use get_or_create to avoid duplicates
+                exercise, created = FitbitExercise.objects.get_or_create(
+                    logId=entry['logId'],
+                    participant=participant_obj,
+                    defaults={
+                        'activityName': entry['activityName'],
+                        'activityTypeId': entry['activityTypeId'],
+                        'averageHeartRate': average_heart_rate,  # Handle missing values
+                        'calories': entry['calories'],
+                        'duration': entry['duration'],
+                        'activeDuration': entry['activeDuration'],
+                        'steps': entry.get('steps', None),
+                        'logType': entry['logType'],
+                        'lastModified': parse_timezone_aware_datetime(entry['lastModified']),
+                        'startTime': parse_timezone_aware_datetime(entry['startTime']),
+                        'originalStartTime': parse_timezone_aware_datetime(entry['originalStartTime']),
+                        'originalDuration': entry['originalDuration'],
+                        'elevationGain': entry.get('elevationGain', None),
+                        'hasGps': entry['hasGps'],
+                        'shouldFetchDetails': entry['shouldFetchDetails'],
+                        'distance': entry.get('distance', None),
+                        'distanceUnit': entry.get('distanceUnit', None),
+                        'speed': entry.get('speed', None),
+                        'pace': entry.get('pace', None),
+                        'swimLengths': entry.get('swimLengths', None),
+                        'poolLength': entry.get('poolLength', None),
+                        'poolLengthUnit': entry.get('poolLengthUnit', None)
+                    }
+                )
+
+                # Only create related records if this is a new exercise entry
+                if created:
+                    # Create ActivityLevel related entries
+                    for level in entry['activityLevel']:
+                        ActivityLevel.objects.create(
+                            name=level['name'],
+                            minutes=level['minutes'],
+                            exercise=exercise
+                        )
+
+                    # Create HeartRateZone related entries
+                    for zone in entry['heartRateZones']:
+                        HeartRateZone.objects.create(
+                            name=zone['name'],
+                            min=zone['min'],
+                            max=zone['max'],
+                            minutes=zone['minutes'],
+                            exercise=exercise
+                        )
+
+                    # Check if 'source' exists before creating the ExerciseSource
+                    if 'source' in entry:
+                        source = entry['source']
+                        tracker_features = source.get('trackerFeatures', None)
+                        if tracker_features is None:
+                            self.stdout.write(self.style.WARNING(f"Missing 'trackerFeatures' for {participant_obj.participant_id}, logId: {entry['logId']}"))
+
+                        ExerciseSource.objects.create(
+                            type=source['type'],
+                            name=source['name'],
+                            tracker_id=source['id'],
+                            url=source['url'],
+                            tracker_features=tracker_features,  # Handle missing values
+                            exercise=exercise
+                        )
+
+            except Exception as e:
+                self.stdout.write(self.style.ERROR(f"Error processing entry for {participant_obj.participant_id}: {e}"))
+
+        self.stdout.write(self.style.SUCCESS(f'Imported exercise data for {participant_obj.participant_id}'))
+
+
+
+
+
+
+
+
 
 
 
@@ -426,82 +632,8 @@ class Command(BaseCommand):
 
     
     
-    def import_exercise(self, participant_obj, participant_folder):
-        file_path = os.path.join(participant_folder, 'Fitbit', 'exercise.json')
+    
 
-        if not os.path.exists(file_path):
-            self.stdout.write(self.style.WARNING(f'Skipping missing file: {file_path}'))
-            return
-
-        with open(file_path, 'r') as json_file:
-            data = json.load(json_file)
-
-        # Loop through the data and insert records
-        for entry in data:
-            try:
-                # Check if an exercise with this logId already exists for the participant
-                if not FitbitExercise.objects.filter(logId=entry['logId']).exists():
-                    # Create the FitbitExercise object if it doesn't exist
-                    exercise = FitbitExercise.objects.create(
-                        participant=participant_obj,
-                        logId=entry['logId'],
-                        activityName=entry['activityName'],
-                        activityTypeId=entry['activityTypeId'],
-                        averageHeartRate=entry['averageHeartRate'],
-                        calories=entry['calories'],
-                        duration=entry['duration'],
-                        activeDuration=entry['activeDuration'],
-                        steps=entry.get('steps', None),
-                        logType=entry['logType'],
-                        lastModified=parse_datetime(entry['lastModified']),
-                        startTime=parse_datetime(entry['startTime']),
-                        originalStartTime=parse_datetime(entry['originalStartTime']),
-                        originalDuration=entry['originalDuration'],
-                        elevationGain=entry.get('elevationGain', None),
-                        hasGps=entry['hasGps'],
-                        shouldFetchDetails=entry['shouldFetchDetails'],
-                        distance=entry.get('distance', None),
-                        distanceUnit=entry.get('distanceUnit', None),
-                        speed=entry.get('speed', None),
-                        pace=entry.get('pace', None),
-                        swimLengths=entry.get('swimLengths', None),
-                        poolLength=entry.get('poolLength', None),
-                        poolLengthUnit=entry.get('poolLengthUnit', None)
-                    )
-
-                    # Now create related ActivityLevel and HeartRateZone objects
-                    for level in entry['activityLevel']:
-                        ActivityLevel.objects.create(
-                            name=level['name'],
-                            minutes=level['minutes'],
-                            exercise=exercise
-                        )
-
-                    for zone in entry['heartRateZones']:
-                        HeartRateZone.objects.create(
-                            name=zone['name'],
-                            min=zone['min'],
-                            max=zone['max'],
-                            minutes=zone['minutes'],
-                            exercise=exercise
-                        )
-
-                    # Create the source object
-                    source = entry['source']
-                    ExerciseSource.objects.create(
-                        type=source['type'],
-                        name=source['name'],
-                        tracker_id=source['id'],
-                        url=source['url'],
-                        tracker_features=source['trackerFeatures'],
-                        exercise=exercise
-                    )
-
-            except Exception as e:
-                self.stdout.write(self.style.ERROR(f"Error processing entry for {participant_obj.participant_id}: {e}"))
-
-        # Log success message after the participant's exercise data has been imported
-        self.stdout.write(self.style.SUCCESS(f'Imported exercise data for {participant_obj.participant_id}'))
 
 
 
@@ -620,106 +752,7 @@ class Command(BaseCommand):
 
     
 
-    def import_sleep(self, participant_obj, participant_folder):
-        file_path = os.path.join(participant_folder, 'Fitbit', 'sleep.json')
-
-        if not os.path.exists(file_path):
-            self.stdout.write(self.style.WARNING(f'Skipping missing file: {file_path}'))
-            return
-
-        # Load the JSON data
-        with open(file_path, 'r') as json_file:
-            data = json.load(json_file)
-
-        # Batch lists for bulk insertion
-        sleep_log_entries = []
-        sleep_summary_entries = []
-        sleep_level_data_entries = []
-        sleep_short_data_entries = []
-        BATCH_SIZE = 5000
-
-        for entry in data:
-            try:
-                # Create or get the sleep log entry
-                sleep_log, created = SleepLog.objects.get_or_create(
-                    participant=participant_obj,
-                    logId=entry['logId'],
-                    defaults={
-                        'dateOfSleep': entry['dateOfSleep'],
-                        'startTime': entry['startTime'],
-                        'endTime': entry['endTime'],
-                        'duration': entry['duration'],
-                        'minutesToFallAsleep': entry['minutesToFallAsleep'],
-                        'minutesAsleep': entry['minutesAsleep'],
-                        'minutesAwake': entry['minutesAwake'],
-                        'minutesAfterWakeup': entry['minutesAfterWakeup'],
-                        'timeInBed': entry['timeInBed'],
-                        'efficiency': entry['efficiency'],
-                        'sleep_type': entry['type'],
-                        'infoCode': entry['infoCode'],
-                        'mainSleep': entry['mainSleep']
-                    }
-                )
-
-                # Process sleep level summary if present
-                if 'summary' in entry['levels']:
-                    summary = entry['levels']['summary']
-                    SleepLevelSummary.objects.create(
-                        sleep_log=sleep_log,
-                        deep_count=summary.get('deep', {}).get('count', 0),  # Handle missing 'deep' key
-                        deep_minutes=summary.get('deep', {}).get('minutes', 0),  # Handle missing 'deep' key
-                        deep_thirty_day_avg_minutes=summary.get('deep', {}).get('thirtyDayAvgMinutes', 0),  # Handle missing key
-                        wake_count=summary.get('wake', {}).get('count', 0),
-                        wake_minutes=summary.get('wake', {}).get('minutes', 0),
-                        wake_thirty_day_avg_minutes=summary.get('wake', {}).get('thirtyDayAvgMinutes', 0),
-                        light_count=summary.get('light', {}).get('count', 0),
-                        light_minutes=summary.get('light', {}).get('minutes', 0),
-                        light_thirty_day_avg_minutes=summary.get('light', {}).get('thirtyDayAvgMinutes', 0),
-                        rem_count=summary.get('rem', {}).get('count', 0),
-                        rem_minutes=summary.get('rem', {}).get('minutes', 0),
-                        rem_thirty_day_avg_minutes=summary.get('rem', {}).get('thirtyDayAvgMinutes', 0)
-                    )
-
-                # Process sleep level data
-                for level_data in entry['levels']['data']:
-                    sleep_level_data_entries.append(SleepLevelData(
-                        sleep_log=sleep_log,
-                        dateTime=level_data['dateTime'],
-                        level=level_data['level'],
-                        seconds=level_data['seconds']
-                    ))
-
-                # Process short sleep data if present
-                if 'shortData' in entry['levels']:
-                    for short_data in entry['levels']['shortData']:
-                        sleep_short_data_entries.append(SleepShortData(
-                            sleep_log=sleep_log,
-                            dateTime=short_data['dateTime'],
-                            level=short_data['level'],
-                            seconds=short_data['seconds']
-                        ))
-
-                # Bulk insertion if batch size is reached
-                if len(sleep_level_data_entries) >= BATCH_SIZE:
-                    SleepLevelData.objects.bulk_create(sleep_level_data_entries)
-                    sleep_level_data_entries = []
-
-                if len(sleep_short_data_entries) >= BATCH_SIZE:
-                    SleepShortData.objects.bulk_create(sleep_short_data_entries)
-                    sleep_short_data_entries = []
-
-            except Exception as e:
-                self.stdout.write(self.style.ERROR(f"Error processing sleep log for {participant_obj.participant_id}: {e}"))
-
-        # Insert remaining entries after loop
-        if sleep_level_data_entries:
-            SleepLevelData.objects.bulk_create(sleep_level_data_entries)
-
-        if sleep_short_data_entries:
-            SleepShortData.objects.bulk_create(sleep_short_data_entries)
-
-        self.stdout.write(self.style.SUCCESS(f'Imported sleep data for {participant_obj.participant_id}'))
-
+    
 
      
 
