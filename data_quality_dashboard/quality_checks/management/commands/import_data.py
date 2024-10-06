@@ -211,19 +211,6 @@ class Command(BaseCommand):
 
 
 
-
-    
-
-   
-    
-
-
-
-
-    
-    
-    
-
     def import_exercise(self, participant_obj, participant_folder):
         file_path = os.path.join(participant_folder, 'Fitbit', 'exercise.json')
 
@@ -284,7 +271,10 @@ class Command(BaseCommand):
                         'pace': entry.get('pace', None),
                         'swimLengths': entry.get('swimLengths', None),
                         'poolLength': entry.get('poolLength', None),
-                        'poolLengthUnit': entry.get('poolLengthUnit', None)
+                        'poolLengthUnit': entry.get('poolLengthUnit', None),
+                        'manualValuesSpecified': entry.get('manualValuesSpecified', None),
+                        'tcxLink': entry.get('tcxLink', None),
+                        'vo2Max': entry.get('vo2Max', {}).get('value', None)  # Handle nested vo2Max value
                     }
                 )
 
@@ -328,10 +318,6 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.ERROR(f"Error processing entry for {participant_obj.participant_id}: {e}"))
 
         self.stdout.write(self.style.SUCCESS(f'Imported exercise data for {participant_obj.participant_id}'))
-
-
-
-
 
 
 

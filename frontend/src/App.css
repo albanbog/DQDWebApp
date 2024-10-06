@@ -1,38 +1,77 @@
-.App {
-  text-align: center;
+/* App.css */
+
+/* Reset margin and padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;  /* Ensure the page takes the full height of the viewport */
+  width: 100%;   /* Ensure the page takes the full width of the viewport */
+  overflow-x: hidden;  /* Prevent horizontal scrolling */
+  box-sizing: border-box; /* Make sure padding and borders are included in width/height calculations */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Main container layout */
+.app-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height: 100vh;  /* Ensure the page takes the full height of the viewport */
+  margin: 0;
+  padding: 0;
+  background-color: #011625;  /* Main background color */
 }
 
-.App-link {
-  color: #61dafb;
+/* Sidebar (fixed to the left, no horizontal scroll) */
+.sidebar {
+  width: 250px;  /* Set width for the sidebar */
+  height: 100vh;  /* Full height of the page */
+  background-color: #325a74;  /* Sidebar background color */
+  padding: 0;
+  position: fixed;  /* Fix it to the left side */
+  top: 0;
+  left: 0;
+  overflow-y: auto;  /* Enable vertical scrolling if the content is too long */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Main content (taking the remaining width after the sidebar) */
+.main-content {
+  flex-grow: 1;  /* Fill remaining space after the sidebar */
+  margin-left: 300px;  /* Offset for the sidebar width */
+  padding: 20px;
+  background-color: #011625;
+  height: 100vh;  /* Full height for the content */
+  overflow-y: auto;  /* Enable vertical scrolling if needed */
+  box-sizing: border-box;  /* Include padding and border in width/height calculations */
+}
+
+
+
+
+/* Profile section layout */
+.profile-section-wrapper {
+  position: absolute;
+  top: 15px; /* Distance from the top */
+  right: 20px; /* Position on the right side */
+  background-color: #325a74; /* Same color as the SidebarMenu and ReportsList */
+  padding: 10px;
+  border-radius: 15px;
+  width: 200px; /* Adjust the width for the profile section */
+}
+
+/* Reports section */
+.reports-section {
+  background-color: #325a74;  /* Reports section background color */
+  border-radius: 15px;
+}
+
+/* Isolated logo container */
+.logo-wrapper {
+  position: absolute; /* Removed from document flow but not affecting layout */
+  top: 15px;          /* Distance from top */
+  left: 40px;         /* Distance from left */
+  z-index: 100;       /* Ensure it appears above other elements */
+}
+
+/* Logo styling */
+.logo {
+  width: 150px;
+  height: auto;       /* Maintain aspect ratio */
 }

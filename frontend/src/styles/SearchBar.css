@@ -1,0 +1,34 @@
+/* SearchBar.css */
+/* SearchBar.css */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #325a74;
+  padding: 10px;
+  border-radius: 15px;
+  width: 400px; /* Adjust the width as needed */
+  margin-left: 15px; /* Adjust this to match the left offset of the ReportsList */
+}
+
+
+.search-bar input {
+  flex-grow: 1;
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 16px;
+  font-style: italic;
+  outline: none;
+  padding-left: 10px; /* Padding for better alignment */
+}
+
+/* Placeholder color */
+.search-bar input::placeholder {
+  color: #ffffff;
+}
+
+.search-icon {
+  cursor: pointer;
+  margin-left: 10px; /* Add space between input and icon */
+  color: #ffffff; /* Ensure the search icon matches the text color */
+}

@@ -144,6 +144,11 @@ class ExerciseSource(models.Model):
         return f"{self.exercise.participant} - {self.name} ({self.type})"
 
 
+
+# Define the default value function
+def default_manual_values():
+    return {"calories": False, "distance": False, "steps": False}
+
 # Main FitbitExercise model
 class FitbitExercise(models.Model):
     participant = models.ForeignKey('ParticipantOverview', on_delete=models.CASCADE)  # Link to participant
@@ -170,10 +175,13 @@ class FitbitExercise(models.Model):
     swimLengths = models.IntegerField(null=True, blank=True)  # Number of swim lengths (for swimming)
     poolLength = models.FloatField(null=True, blank=True)  # Pool length used during the activity (for swimming)
     poolLengthUnit = models.CharField(max_length=10, null=True, blank=True)  # Unit for pool length (e.g., meters)
+    manualValuesSpecified = models.JSONField(default=default_manual_values)  # Use function for default
+    tcxLink = models.URLField(null=True, blank=True)  # TCX link for exercise data
+    vo2Max = models.FloatField(null=True, blank=True)  # VO2 Max value
 
     def __str__(self):
         return f"{self.participant} - {self.activityName} ({self.logId})"
-    
+# End of Fitbit/exercise.json data model    
 
 class FitbitCalories(models.Model):
         participant = models.ForeignKey('ParticipantOverview', on_delete=models.CASCADE)  # Link to participant
@@ -254,7 +262,7 @@ class SleepLevelData(models.Model):
 class SleepShortData(models.Model):
     sleep_log = models.ForeignKey(SleepLog, on_delete=models.CASCADE, related_name="short_data")  # Link to SleepLog
     dateTime = models.DateTimeField()  # Timestamp of the sleep level
-    level = models.CharField(max_length=10)  # Sleep level (e.g., wake, restless)
+    level = models.CharField(max_length=10)  # Sleep level (e.g., wake, light, deep, rem)
     seconds = models.IntegerField()  # Duration in seconds for this short level
 
     def __str__(self):

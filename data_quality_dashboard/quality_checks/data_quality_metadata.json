@@ -1,457 +1,808 @@
-{
-    "file_name": "lightly_active_minutes.json",
-    "expected_records": 152,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "dateTime": {
-        "type": "DateTimeField",
-        "description": "Date and time of the recorded data.",
-        "expected_format": "YYYY-MM-DD HH:MM:SS",
-        "allowed_range": {
-          "start": "2019-11-01 00:00:00",
-          "end": "2019-03-31 00:00:00"
-        }
-      },
-      "value": {
-        "type": "IntegerField",
-        "description": "The number of lightly active minutes recorded.",
-        "allowed_range": {
-          "min": 0,
-          "max": 1440
-        }
-      }
-    },
-    "constraints": {
-      "uniform_time_format": true
-    }
-  }
-
-{
-    "file_name": "moderately_active_minutes.json",
-    "expected_records": 152,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "dateTime": {
-        "type": "DateTimeField",
-        "description": "Date and time of the recorded data.",
-        "expected_format": "YYYY-MM-DD HH:MM:SS",
-        "allowed_range": {
-          "start": "2019-11-01 00:00:00",
-          "end": "2019-03-31 00:00:00"
-        }
-      },
-      "value": {
-        "type": "IntegerField",
-        "description": "The number of moderately active minutes recorded.",
-        "allowed_range": {
-          "min": 0,
-          "max": 1440
-        }
-      }
-    },
-    "constraints": {
-      "uniform_time_format": true
-    }
-  }
-  
-  {
-    "file_name": "sedentary_minutes.json",
-    "expected_records": 152,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "dateTime": {
-        "type": "DateTimeField",
-        "description": "Date and time of the recorded data.",
-        "expected_format": "YYYY-MM-DD HH:MM:SS",
-        "allowed_range": {
-          "start": "2019-11-01 00:00:00",
-          "end": "2019-03-31 00:00:00"
-        }
-      },
-      "value": {
-        "type": "IntegerField",
-        "description": "The number of sedentary minutes recorded.",
-        "allowed_range": {
-          "min": 0,
-          "max": 1440
-        }
-      }
-    },
-    "constraints": {
-      "uniform_time_format": true
-    }
-  }
-
-  {
-    "file_name": "very_active_minutes.json",
-    "expected_records": 152,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "dateTime": {
-        "type": "DateTimeField",
-        "description": "Date and time of the recorded data.",
-        "expected_format": "YYYY-MM-DD HH:MM:SS",
-        "allowed_range": {
-          "start": "2019-11-01 00:00:00",
-          "end": "2019-03-31 00:00:00"
-        }
-      },
-      "value": {
-        "type": "IntegerField",
-        "description": "The number of very active minutes recorded.",
-        "allowed_range": {
-          "min": 0,
-          "max": 1440
-        }
-      }
-    },
-    "constraints": {
-      "uniform_time_format": true
-    }
-  }
-
-  {
-    "file_name": "resting_heart_rate.json",
-    "expected_records": 152,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "dateTime": {
-        "type": "DateTimeField",
-        "description": "Datetime of the recorded data.",
-        "expected_format": "YYYY-MM-DD HH:MM:SS",
-        "allowed_range": {
-          "start": "2019-11-01 00:00:00",
-          "end": "2019-03-31 00:00:00"
-        }
-      },
-      "value_date": {
-        "type": "DateField",
-        "description": "Date of the heart rate record.",
-        "expected_format": "YY/MM/DD"
-      },
-      "value": {
-        "type": "FloatField",
-        "description": "Resting heart rate value in beats per minute (bpm).",
-        "allowed_range": {
-          "min": 30,
-          "max": 130
+[
+    {
+      "file_name": "lightly_active_minutes.json",
+      "expected_records": 152,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
         },
-        "precision": 15
-      },
-      "error": {
-        "type": "FloatField",
-        "description": "Measurement error (optional).",
-        "allowed_range": {
-          "min": 3,
-          "max": 11
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Date and time of the recorded data.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2019-03-31 00:00:00"
+          }
         },
-        "precision": 15,
-        "nullable": true
-      }
-    },
-    "constraints": {
-      "uniform_time_format": true
-    }
-  }
-
-  {
-    "file_name": "time_in_heart_rate_zones.json",
-    "expected_records": 152,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "dateTime": {
-        "type": "DateTimeField",
-        "description": "Date and time of the recorded data.",
-        "expected_format": "YYYY-MM-DD HH:MM:SS",
-        "allowed_range": {
-          "start": "2019-11-01 00:00:00",
-          "end": "2019-03-31 00:00:00"
+        "value": {
+          "type": "IntegerField",
+          "description": "The number of lightly active minutes recorded.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
         }
       },
-      "below_default_zone_1": {
-        "type": "FloatField",
-        "description": "Time spent below the default heart rate zone 1 in minutes.",
-        "allowed_range": {
-          "min": 0,
-          "max": 1440
+      "constraints": {
+        "uniform_time_format": true
+      }
+    },
+    {
+      "file_name": "moderately_active_minutes.json",
+      "expected_records": 152,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
         },
-        "precision": 1
-      },
-      "in_default_zone_1": {
-        "type": "FloatField",
-        "description": "Time spent in default heart rate zone 1 in minutes.",
-        "allowed_range": {
-          "min": 0,
-          "max": 1440
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Date and time of the recorded data.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2019-03-31 00:00:00"
+          }
         },
-        "precision": 1
+        "value": {
+          "type": "IntegerField",
+          "description": "The number of moderately active minutes recorded.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        }
       },
-      "in_default_zone_2": {
-        "type": "FloatField",
-        "description": "Time spent in default heart rate zone 2 in minutes.",
-        "allowed_range": {
-          "min": 0,
-          "max": 1440
+      "constraints": {
+        "uniform_time_format": true
+      }
+    },
+    {
+      "file_name": "sedentary_minutes.json",
+      "expected_records": 152,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
         },
-        "precision": 1
-      },
-      "in_default_zone_3": {
-        "type": "FloatField",
-        "description": "Time spent in default heart rate zone 3 in minutes.",
-        "allowed_range": {
-          "min": 0,
-          "max": 1440
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Date and time of the recorded data.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2019-03-31 00:00:00"
+          }
         },
-        "precision": 1
+        "value": {
+          "type": "IntegerField",
+          "description": "The number of sedentary minutes recorded.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        }
+      },
+      "constraints": {
+        "uniform_time_format": true
       }
     },
-    "constraints": {
-      "uniform_time_format": true
-    }
-  }
-  
-  {
-    "file_name": "sleep_score.csv",
-    "expected_records": 152,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "timestamp": {
-        "type": "DateTimeField",
-        "description": "The timestamp of the sleep score.",
-        "expected_format": "YYYY-MM-DDTHH:MM:SSZ",
-        "allowed_range": {
-          "start": "2019-11-01T00:00:00Z",
-          "end": "2019-03-31T00:00:00Z"
-        }
-      },
-      "sleep_log_entry_id": {
-        "type": "BigIntegerField",
-        "description": "Unique ID for the sleep log entry.",
-        "max_digits": 11
-      },
-      "overall_score": {
-        "type": "IntegerField",
-        "description": "The overall sleep score.",
-        "allowed_range": {
-          "min": 0,
-          "max": 100
-        }
-      },
-      "composition_score": {
-        "type": "IntegerField",
-        "description": "Score for sleep composition.",
-        "allowed_range": {
-          "min": 0,
-          "max": 100
-        }
-      },
-      "revitalization_score": {
-        "type": "IntegerField",
-        "description": "Score for revitalization.",
-        "allowed_range": {
-          "min": 0,
-          "max": 100
-        }
-      },
-      "duration_score": {
-        "type": "IntegerField",
-        "description": "Score for the sleep duration.",
-        "allowed_range": {
-          "min": 0,
-          "max": 100
-        }
-      },
-      "deep_sleep_in_minutes": {
-        "type": "IntegerField",
-        "description": "Duration of deep sleep in minutes.",
-        "allowed_range": {
-          "min": 0,
-          "max": 180
-        }
-      },
-      "resting_heart_rate": {
-        "type": "IntegerField",
-        "description": "Resting heart rate during sleep.",
-        "allowed_range": {
-          "min": 30,
-          "max": 130
-        }
-      },
-      "restlessness": {
-        "type": "FloatField",
-        "description": "Measure of restlessness during sleep.",
-        "precision": 15,
-        "example_value": "0.093491124260355"
-      }
-    },
-    "constraints": {
-      "uniform_time_format": true
-    }
-  }
-
-  
-  {
-    "file_name": "steps.json",
-    "expected_records": 152,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "dateTime": {
-        "type": "DateTimeField",
-        "description": "Date and time of the recorded steps.",
-        "expected_format": "YYYY-MM-DD HH:MM:SS",
-        "allowed_range": {
-          "start": "2019-11-01 00:00:00",
-          "end": "2020-03-31 23:59:00"
-        }
-      },
-      "value": {
-        "type": "IntegerField",
-        "description": "Number of steps recorded.",
-        "allowed_range": {
-          "min": 0,
-          "max": 230
-        }
-      }
-    },
-    "constraints": {
-      "uniform_time_format": true
-    }
-  }
-
-  
-  {
-    "file_name": "distance.json",
-    "expected_records": 152,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "dateTime": {
-        "type": "DateTimeField",
-        "description": "Date and time of the recorded distance.",
-        "expected_format": "YYYY-MM-DD HH:MM:SS",
-        "allowed_range": {
-          "start": "2019-11-01 00:00:00",
-          "end": "2020-03-31 23:59:00"
-        }
-      },
-      "value": {
-        "type": "FloatField",
-        "description": "Distance recorded, likely in centimeters or meters.",
-        "allowed_range": {
-          "min": 0,
-          "max": 745
-        }
-      }
-    },
-    "constraints": {
-      "uniform_time_format": true,
-      "matching_record_count_with_steps": true
-    }
-  }
-
-  {
-    "file_name": "calories.json",
-    "expected_records": 218880,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "dateTime": {
-        "type": "DateTimeField",
-        "description": "Date and time of the recorded calories.",
-        "expected_format": "YYYY-MM-DD HH:MM:SS",
-        "allowed_range": {
-          "start": "2019-11-01 00:00:00",
-          "end": "2020-03-31 23:59:00"
-        }
-      },
-      "value": {
-        "type": "FloatField",
-        "description": "Calories burned.",
-        "allowed_range": {
-          "min": 1,
-          "max": 40
+    {
+      "file_name": "very_active_minutes.json",
+      "expected_records": 152,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
         },
-        "precision": 2
-      }
-    },
-    "constraints": {
-      "uniform_time_format": true
-    }
-  }
-
-  {
-    "file_name": "heart_rate.json",
-    "expected_records": 218880,
-    "expected_variables": {
-      "participant": {
-        "type": "ForeignKey",
-        "related_model": "ParticipantOverview",
-        "description": "Link to the participant's overview."
-      },
-      "dateTime": {
-        "type": "DateTimeField",
-        "description": "Date and time of the recorded heart rate.",
-        "expected_format": "YYYY-MM-DD HH:MM:SS",
-        "allowed_range": {
-          "start": "2019-11-01 00:00:00",
-          "end": "2020-03-31 23:59:59"
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Date and time of the recorded data.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2019-03-31 00:00:00"
+          }
+        },
+        "value": {
+          "type": "IntegerField",
+          "description": "The number of very active minutes recorded.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
         }
       },
-      "bpm": {
-        "type": "IntegerField",
-        "description": "Beats per minute.",
-        "allowed_range": {
-          "min": 30,
-          "max": 220
-        }
-      },
-      "confidence": {
-        "type": "IntegerField",
-        "description": "Confidence level of the heart rate reading.",
-        "allowed_values": [1, 2, 3]
+      "constraints": {
+        "uniform_time_format": true
       }
     },
-    "constraints": {
-      "uniform_time_format": true
+    {
+      "file_name": "resting_heart_rate.json",
+      "expected_records": 152,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
+        },
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Datetime of the recorded data.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2019-03-31 00:00:00"
+          }
+        },
+        "value_date": {
+          "type": "DateField",
+          "description": "Date of the heart rate record.",
+          "expected_format": "YY/MM/DD"
+        },
+        "value": {
+          "type": "FloatField",
+          "description": "Resting heart rate value in beats per minute (bpm).",
+          "allowed_range": {
+            "min": 30,
+            "max": 130
+          },
+          "precision": 15
+        },
+        "error": {
+          "type": "FloatField",
+          "description": "Measurement error (optional).",
+          "allowed_range": {
+            "min": 3,
+            "max": 11
+          },
+          "precision": 15,
+          "nullable": true
+        }
+      },
+      "constraints": {
+        "uniform_time_format": true
+      }
+    },
+    {
+      "file_name": "time_in_heart_rate_zones.json",
+      "expected_records": 152,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
+        },
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Date and time of the recorded data.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2019-03-31 00:00:00"
+          }
+        },
+        "below_default_zone_1": {
+          "type": "FloatField",
+          "description": "Time spent below the default heart rate zone 1 in minutes.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          },
+          "precision": 1
+        },
+        "in_default_zone_1": {
+          "type": "FloatField",
+          "description": "Time spent in default heart rate zone 1 in minutes.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          },
+          "precision": 1
+        },
+        "in_default_zone_2": {
+          "type": "FloatField",
+          "description": "Time spent in default heart rate zone 2 in minutes.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          },
+          "precision": 1
+        },
+        "in_default_zone_3": {
+          "type": "FloatField",
+          "description": "Time spent in default heart rate zone 3 in minutes.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          },
+          "precision": 1
+        }
+      },
+      "constraints": {
+        "uniform_time_format": true
+      }
+    },
+    {
+      "file_name": "sleep_score.csv",
+      "expected_records": 152,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
+        },
+        "timestamp": {
+          "type": "DateTimeField",
+          "description": "The timestamp of the sleep score.",
+          "expected_format": "YYYY-MM-DDTHH:MM:SSZ",
+          "allowed_range": {
+            "start": "2019-11-01T00:00:00Z",
+            "end": "2019-03-31T00:00:00Z"
+          }
+        },
+        "sleep_log_entry_id": {
+          "type": "BigIntegerField",
+          "description": "Unique ID for the sleep log entry.",
+          "max_digits": 11
+        },
+        "overall_score": {
+          "type": "IntegerField",
+          "description": "The overall sleep score.",
+          "allowed_range": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "composition_score": {
+          "type": "IntegerField",
+          "description": "Score for sleep composition.",
+          "allowed_range": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "revitalization_score": {
+          "type": "IntegerField",
+          "description": "Score for revitalization.",
+          "allowed_range": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "duration_score": {
+          "type": "IntegerField",
+          "description": "Score for the sleep duration.",
+          "allowed_range": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "deep_sleep_in_minutes": {
+          "type": "IntegerField",
+          "description": "Duration of deep sleep in minutes.",
+          "allowed_range": {
+            "min": 0,
+            "max": 180
+          }
+        },
+        "resting_heart_rate": {
+          "type": "IntegerField",
+          "description": "Resting heart rate during sleep.",
+          "allowed_range": {
+            "min": 30,
+            "max": 130
+          }
+        },
+        "restlessness": {
+          "type": "FloatField",
+          "description": "Measure of restlessness during sleep.",
+          "precision": 15,
+          "example_value": "0.093491124260355"
+        }
+      },
+      "constraints": {
+        "uniform_time_format": true
+      }
+    },
+    {
+      "file_name": "steps.json",
+      "expected_records": 152,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
+        },
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Date and time of the recorded steps.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2020-03-31 23:59:00"
+          }
+        },
+        "value": {
+          "type": "IntegerField",
+          "description": "Number of steps recorded.",
+          "allowed_range": {
+            "min": 0,
+            "max": 230
+          }
+        }
+      },
+      "constraints": {
+        "uniform_time_format": true
+      }
+    },
+    {
+      "file_name": "distance.json",
+      "expected_records": 152,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
+        },
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Date and time of the recorded distance.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2020-03-31 23:59:00"
+          }
+        },
+        "value": {
+          "type": "FloatField",
+          "description": "Distance recorded, likely in centimeters or meters.",
+          "allowed_range": {
+            "min": 0,
+            "max": 745
+          }
+        }
+      },
+      "constraints": {
+        "uniform_time_format": true,
+        "matching_record_count_with_steps": true
+      }
+    },
+    {
+      "file_name": "calories.json",
+      "expected_records": 218880,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
+        },
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Date and time of the recorded calories.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2020-03-31 23:59:00"
+          }
+        },
+        "value": {
+          "type": "FloatField",
+          "description": "Calories burned.",
+          "allowed_range": {
+            "min": 1,
+            "max": 40
+          },
+          "precision": 2
+        }
+      },
+      "constraints": {
+        "uniform_time_format": true
+      }
+    },
+    {
+      "file_name": "heart_rate.json",
+      "expected_records": 218880,
+      "expected_variables": {
+        "participant": {
+          "type": "ForeignKey",
+          "related_model": "ParticipantOverview",
+          "description": "Link to the participant's overview."
+        },
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Date and time of the recorded heart rate.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2020-03-31 23:59:59"
+          }
+        },
+        "bpm": {
+          "type": "IntegerField",
+          "description": "Beats per minute.",
+          "allowed_range": {
+            "min": 30,
+            "max": 220
+          }
+        },
+        "confidence": {
+          "type": "IntegerField",
+          "description": "Confidence level of the heart rate reading.",
+          "allowed_values": [1, 2, 3]
+        }
+      },
+      "constraints": {
+        "uniform_time_format": true
+      }
+    },
+    {
+      "file_name": "sleep.json",
+      "expected_variables": {
+        "logId": {
+          "type": "BigIntegerField",
+          "description": "Unique ID for the sleep log.",
+          "exact_digits": 11
+        },
+        "dateOfSleep": {
+          "type": "DateField",
+          "description": "The date of the sleep.",
+          "expected_format": "YYYY-MM-DD",
+          "allowed_range": {
+            "start": "2019-11-01",
+            "end": "2020-01-31"
+          }
+        },
+        "startTime": {
+          "type": "DateTimeField",
+          "description": "The start time of the sleep.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2020-03-31 23:59:59"
+          }
+        },
+        "endTime": {
+          "type": "DateTimeField",
+          "description": "The end time of the sleep.",
+          "expected_format": "YYYY-MM-DDTHH:MM:SS.SSS",
+          "allowed_range": {
+            "start": "2019-11-01T00:00:00.000",
+            "end": "2020-03-31T23:59:59.999"
+          }
+        },
+        "duration": {
+          "type": "BigIntegerField",
+          "description": "Total duration of the sleep in milliseconds.",
+          "allowed_range": {
+            "min": 0,
+            "max": 86400000
+          }
+        },
+        "minutesToFallAsleep": {
+          "type": "IntegerField",
+          "description": "Minutes taken to fall asleep.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        },
+        "minutesAsleep": {
+          "type": "IntegerField",
+          "description": "Total minutes spent asleep.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        },
+        "minutesAwake": {
+          "type": "IntegerField",
+          "description": "Total minutes spent awake during sleep.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        },
+        "minutesAfterWakeup": {
+          "type": "IntegerField",
+          "description": "Minutes spent awake after waking up.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        },
+        "timeInBed": {
+          "type": "IntegerField",
+          "description": "Total time spent in bed in minutes.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        },
+        "efficiency": {
+          "type": "IntegerField",
+          "description": "Sleep efficiency percentage.",
+          "allowed_range": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "sleep_type": {
+          "type": "CharField",
+          "description": "Type of sleep: either 'stages' or 'classic'.",
+          "allowed_values": ["stages", "classic"]
+        },
+        "infoCode": {
+          "type": "IntegerField",
+          "description": "Additional information code (e.g., for error reporting)."
+        },
+        "mainSleep": {
+          "type": "BooleanField",
+          "description": "Indicates if this is the main sleep period."
+        },
+        "deep_count": {
+          "type": "IntegerField",
+          "description": "Number of deep sleep periods.",
+          "allowed_range": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "deep_minutes": {
+          "type": "IntegerField",
+          "description": "Total minutes spent in deep sleep.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        },
+        "wake_count": {
+          "type": "IntegerField",
+          "description": "Number of times awake during sleep.",
+          "allowed_range": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "wake_minutes": {
+          "type": "IntegerField",
+          "description": "Total minutes spent awake during sleep.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        },
+        "light_count": {
+          "type": "IntegerField",
+          "description": "Number of light sleep periods.",
+          "allowed_range": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "light_minutes": {
+          "type": "IntegerField",
+          "description": "Total minutes spent in light sleep.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        },
+        "rem_count": {
+          "type": "IntegerField",
+          "description": "Number of REM sleep periods.",
+          "allowed_range": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "rem_minutes": {
+          "type": "IntegerField",
+          "description": "Total minutes spent in REM sleep.",
+          "allowed_range": {
+            "min": 0,
+            "max": 1440
+          }
+        },
+        "dateTime": {
+          "type": "DateTimeField",
+          "description": "Timestamp of the sleep level in both SleepLevelData and SleepShortData.",
+          "expected_format": "YYYY-MM-DDTHH:MM:SS.SSS",
+          "allowed_range": {
+            "start": "2019-11-01T00:00:00.000",
+            "end": "2020-03-31T23:59:59.999"
+          }
+        },
+        "seconds": {
+          "type": "IntegerField",
+          "description": "Duration in seconds for sleep levels (SleepLevelData and SleepShortData).",
+          "allowed_range": {
+            "min": 0,
+            "max": 86400
+          }
+        },
+        "level": {
+          "type": "CharField",
+          "description": "Sleep level in both SleepLevelData and SleepShortData.",
+          "allowed_values": ["wake", "light", "deep", "rem"]
+        }
+      },
+      "constraints": {
+        "uniform_time_format": true
+      }
+    },
+    {
+      "file_name": "exercise.json",
+      "expected_variables": {
+        "logId": {
+          "type": "BigIntegerField",
+          "description": "Unique ID for the exercise log.",
+          "exact_digits": 11
+        },
+        "averageHeartRate": {
+          "type": "IntegerField",
+          "description": "Average heart rate during the activity.",
+          "allowed_range": {
+            "min": 30,
+            "max": 150
+          }
+        },
+        "calories": {
+          "type": "FloatField",
+          "description": "Total calories burned during the activity.",
+          "allowed_range": {
+            "min": 0.025,
+            "max": 12000
+          }
+        },
+        "duration": {
+          "type": "BigIntegerField",
+          "description": "Duration of the activity in milliseconds.",
+          "allowed_range": {
+            "min": 0,
+            "max": 86400000
+          }
+        },
+        "activeDuration": {
+          "type": "BigIntegerField",
+          "description": "Active duration of the activity in milliseconds.",
+          "allowed_range": {
+            "min": 0,
+            "max": 86400000
+          }
+        },
+        "steps": {
+          "type": "IntegerField",
+          "description": "Number of steps during the activity.",
+          "allowed_range": {
+            "min": 0,
+            "max": 150000
+          },
+          "nullable": true
+        },
+        "vO2Max": {
+          "type": "FloatField",
+          "description": "VO2 Max value.",
+          "allowed_range": {
+            "min": 10,
+            "max": 100
+          },
+          "nullable": true
+        },
+        "distance": {
+          "type": "FloatField",
+          "description": "Distance covered during the activity.",
+          "allowed_range": {
+            "min": 0,
+            "max": 500
+          },
+          "nullable": true
+        },
+        "logType": {
+          "type": "CharField",
+          "description": "Type of log (e.g., tracker, auto_detected).",
+          "max_length": 50
+        },
+        "lastModified": {
+          "type": "DateTimeField",
+          "description": "Timestamp of the last modification.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2020-03-31 23:59:59"
+          }
+        },
+        "startTime": {
+          "type": "DateTimeField",
+          "description": "Start time of the activity.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2020-03-31 23:59:59"
+          }
+        },
+        "originalStartTime": {
+          "type": "DateTimeField",
+          "description": "Original start time of the activity.",
+          "expected_format": "YYYY-MM-DD HH:MM:SS",
+          "allowed_range": {
+            "start": "2019-11-01 00:00:00",
+            "end": "2020-03-31 23:59:59"
+          }
+        },
+        "originalDuration": {
+          "type": "BigIntegerField",
+          "description": "Original duration of the activity in milliseconds.",
+          "allowed_range": {
+            "min": 0,
+            "max": 86400000
+          }
+        },
+        "elevationGain": {
+          "type": "FloatField",
+          "description": "Elevation gained during the activity (meters).",
+          "nullable": true
+        },
+        "hasGps": {
+          "type": "BooleanField",
+          "description": "Indicates whether GPS was used during the activity."
+        },
+        "shouldFetchDetails": {
+          "type": "BooleanField",
+          "description": "Indicates whether more details should be fetched for the activity."
+        },
+        "distanceUnit": {
+          "type": "CharField",
+          "description": "Unit of measurement for distance (e.g., km, miles).",
+          "max_length": 10,
+          "nullable": true
+        },
+        "speed": {
+          "type": "FloatField",
+          "description": "Average speed during the activity.",
+          "nullable": true
+        },
+        "pace": {
+          "type": "FloatField",
+          "description": "Average pace during the activity.",
+          "nullable": true
+        },
+        "swimLengths": {
+          "type": "IntegerField",
+          "description": "Number of swim lengths completed (for swimming activities).",
+          "nullable": true
+        },
+        "poolLength": {
+          "type": "FloatField",
+          "description": "Length of the pool used (for swimming activities).",
+          "nullable": true
+        },
+        "poolLengthUnit": {
+          "type": "CharField",
+          "description": "Unit of measurement for the pool length (e.g., meters).",
+          "max_length": 10,
+          "nullable": true
+        },
+        "manualValuesSpecified": {
+          "type": "JSONField",
+          "description": "Dictionary indicating whether certain values (calories, distance, steps) were manually specified.",
+          "default": {"calories": false, "distance": false, "steps": false}
+        },
+        "tcxLink": {
+          "type": "URLField",
+          "description": "Link to the TCX file for the exercise.",
+          "nullable": true
+        }
+      },
+      "constraints": {
+        "uniform_time_format": true
+      }
     }
-  }
-
+  ]
   

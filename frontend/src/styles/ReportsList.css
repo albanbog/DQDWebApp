@@ -1,0 +1,256 @@
+/* ReportsList.css */
+
+/* Main container */
+.reports-list-container {
+  width: calc(100% - 300px);
+  height: 85vh;
+  background-color: #325a74;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  position: fixed;
+  top: 12%;
+  right: 15px;
+}
+
+/* Header section styling */
+.reports-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  color: white;
+  font-weight: bold;
+}
+
+/* Controls for select all and sort */
+.header-controls {
+  display: flex;
+  align-items: center;
+}
+
+.sort-icon img {
+  width: 25px;
+  height: 25px;
+  margin-left: 10px;
+  cursor: pointer;
+  filter: invert(1); /* Inverts the colors, making black into white */
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.pagination-controls button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* Separator line */
+.header-separator-line {
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  border: none;
+  margin-bottom: 10px;
+}
+
+/* Header row for the report list */
+.reports-header {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.checkbox-header {
+  width: 10%;
+}
+
+.id-header {
+  width: 15%;
+  text-align: center;
+  padding-left: 90px;
+}
+
+.score-header {
+  width: 100%;
+  text-align: center;
+}
+
+.date-header {
+  width: 30%;
+  text-align: center;
+  padding-right: 0px;
+}
+
+/* Report items */
+.reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Individual report item */
+.report-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 3px;
+}
+
+/* Checkbox container with larger checkboxes */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  width: 5%;
+  justify-content: flex-end;
+}
+
+/* Custom-styled checkboxes */
+.report-checkbox, .select-all-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid white;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.select-all-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 30px;
+}
+
+.report-checkbox:checked, .select-all-checkbox:checked {
+  background-color: transparent;
+}
+
+.report-checkbox:checked::after, .select-all-checkbox:checked::after {
+  content: '✓';
+  color: white;
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Thicker black report bar */
+.report-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #011625;
+  width: 75%;
+  padding: 10px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* ID inside the report bar, positioned on the left */
+.report-bar .id {
+  color: white;
+  font-size: 16px;
+  width: 15%;
+  padding-left: 80px;
+}
+
+/* Progress section inside the report bar */
+.progress-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 85%;
+  border-left: 2px solid white;
+  padding-left: 8px;
+}
+
+.progress-bar {
+  width: 75%;
+  background-color: #d3d3d3;
+  height: 18px;
+  border-radius: 10px;
+}
+
+.progress {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.percentage {
+  width: 15%;
+  color: white;
+  text-align: right;
+  font-size: 16px;
+}
+
+/* Date positioned outside the black report bar */
+.date {
+  width: 15%;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+}
+
+
+/* Action buttons styling */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.download-button,
+.delete-button {
+  background-color: #011625;
+  color: white;
+  border: 2px solid white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100px; /* Set the same width for both buttons */
+  text-align: center; /* Center the text inside the button */
+}
+
+.download-button:hover,
+.delete-button:hover {
+  background-color: white;
+  color: #011625;
+}
+
+
+/* Black report bar */
+.report-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #011625;
+  width: 75%;
+  padding: 10px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for the report bar */
+.report-bar:hover {
+  background-color: #013040; /* Darker shade for hover */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow effect */
+  transform: scale(1.02); /* Slightly increase the size */
+}
+
