@@ -1,11 +1,11 @@
 import React from 'react';
-import '../styles/ProfileSection.css'; // Profile section-specific styles
+import '../styles/ProfileSection.css';
 
 export const ProfileSection = () => {
   return (
     <div className="profile-section">
-      <i className="profile-icon">👤</i>
       <span className="username">Max Mustermann</span>
+      <img src="/profile.png" alt="Profile" className="profile-icon" />
     </div>
   );
 };

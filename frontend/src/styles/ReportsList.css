@@ -254,3 +254,68 @@
   transform: scale(1.02); /* Slightly increase the size */
 }
 
+
+/* Action buttons styling */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.download-button,
+.delete-button {
+  background-color: #011625;
+  color: white;
+  border: 2px solid white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100px; /* Set the same width for both buttons */
+  text-align: center; /* Center the text inside the button */
+}
+
+.download-button:hover,
+.delete-button:hover {
+  background-color: white;
+  color: #011625;
+}
+
+.sort-button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 10px;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+  width: 100px; /* Set a fixed width */
+  text-align: center; /* Center the text */
+  display: inline-flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.sort-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+.no-reports-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+}
+
+.no-reports-found p {
+  font-style: italic;
+  color: white;
+  font-size: 1.2em;
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}

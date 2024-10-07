@@ -1,13 +1,16 @@
-/* SearchBar.css */
-/* SearchBar.css */
 .search-bar {
   display: flex;
+  background-color: #325a74 !important;
   align-items: center;
-  background-color: #325a74;
-  padding: 10px;
+  background-color: #325a74; /* Same color as the SidebarMenu and ReportsList container */
+  padding: 10px 14px;
   border-radius: 15px;
-  width: 400px; /* Adjust the width as needed */
-  margin-left: 15px; /* Adjust this to match the left offset of the ReportsList */
+  width: 350px; /* Adjusted width for the search bar */
+  height: 45px; /* Adjusted height */
+  box-sizing: border-box;
+  position: absolute;
+  left: 285px; /* Align the search bar with the ReportsList */
+  top: 40px; /* Adjust the top position to control vertical alignment */
 }
 
 
@@ -28,7 +31,9 @@
 }
 
 .search-icon {
-  cursor: pointer;
+  width: 20px;
+  height: 20px;
   margin-left: 10px; /* Add space between input and icon */
-  color: #ffffff; /* Ensure the search icon matches the text color */
+  filter: brightness(0) invert(1); /* This makes the image appear white */
+  cursor: pointer;
 }

@@ -1,21 +1,20 @@
-/* SearchBar.css */
-.search-bar {
+/* ProfileSection.css */
+
+.profile-section {
   display: flex;
   align-items: center;
-  background-color: #859dad;
-  padding: 10px;
-  border-radius: 15px;
-  width: 400px;  /* Adjusted width for a longer search bar */
+  justify-content: flex-end;
 }
 
-.search-bar input {
-  flex-grow: 1;
-  border: none;
-  background-color: transparent;
-  color: #ffffff;
+.profile-icon {
+  width: 24px; /* Adjust size as needed */
+  height: 24px; /* Adjust size as needed */
+  margin-left: 10px; /* Space between text and icon */
+  filter: brightness(0) invert(1); /* This makes the icon white */
 }
 
-/* Placeholder color */
-.search-bar input::placeholder {
-  color: #ffffff;
+.username {
+  color: white;
+  font-size: 18px; /* Larger text */
+  font-weight: bold; /* Bold text */
 }
