@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/ProfileSection.css';
+import '../../styles/HomePage/ProfileSection.css';
 
 export const ProfileSection = () => {
   return (

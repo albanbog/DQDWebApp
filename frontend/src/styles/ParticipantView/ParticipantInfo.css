@@ -1,0 +1,93 @@
+/* src/styles/ParticipantView/ParticipantInfo.css */
+
+.participant-info-container {
+    display: flex;
+    align-items: center;
+    background-color: #333E5A;
+    border-radius: 15px;
+    padding: 10px 110px;
+    width: 360px; /* Adjusted width */
+    height: 120px;
+    position: relative;
+    margin-left: 85px; /* Adjust this value to move it more to the left */
+    margin-top: 15px; /* Adjust this value to move it lower */
+  }
+  
+  .participant-info-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .text-white {
+    color: white; /* Ensures all text is white */
+  }
+  
+  .text-lg {
+    font-size: 1.2rem; /* Larger font size */
+    line-height: 1.5; /* Adjusted line height for better spacing */
+    font-style: italic; /* Makes text italic */
+  }
+  
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    border-bottom: 1px solid white; /* Adds a white underline */
+  }
+  
+  .participant-info-popup {
+    position: absolute;
+    top: 30%; /* Adjusted to ensure the popup appears below the icon */
+    right: 0;
+    margin-top: 10px;
+    background-color: #d0d4e6;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    width: 220px; /* Adjusted width */
+  }
+  
+  .participant-info-popup h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333E5A;
+  }
+  
+  .participant-info-popup p {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #333E5A;
+  }
+  
+  .tag-circle {
+    width: 20px;
+    height: 20px;
+    background-color: #011625;
+    border-radius: 50%;
+    position: absolute;
+    left: -10px;
+  }
+  
+  .info-icon {
+    position: absolute;
+    top: 20px; /* Adjust this to control vertical positioning */
+    right: 20px; /* Adjust this to control horizontal positioning */
+    cursor: pointer;
+  }
+  
+  .info-row-left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allows content to wrap properly */
+    align-content: normal;
+    justify-content: normal;
+    align-items: center; /* Centers the content vertically */
+    margin-bottom: 5px;
+    border-bottom: 1px solid white; /* Adds a white underline */
+  }
+  

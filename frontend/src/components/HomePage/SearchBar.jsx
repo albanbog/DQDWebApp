@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/SearchBar.css';
+import '../../styles/HomePage/SearchBar.css';
 
 export const SearchBar = ({ onSearch }) => {
   const [inputValue, setInputValue] = useState('');

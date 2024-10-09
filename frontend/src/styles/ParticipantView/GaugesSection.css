@@ -1,0 +1,33 @@
+/* src/styles/ParticipantView/GaugesSection.css */
+
+.gauges-section {
+    display: flex;
+    justify-content: space-between;
+    width: auto; /* Allows the width to adjust based on its content */
+    max-width: 70%; /* Sets a maximum width so that it doesn't take up too much space */
+    position: relative;
+    top: 10px;
+    left: 75px;
+    gap: 8px; /* Space between gauges */
+  }
+  
+  .gauge-box {
+    background-color: #325a74;
+    border-radius: 15px; /* Rounded corners for the gauge box */
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px; /* Increase width to accommodate the larger gauge */
+    height: 120px; /* Increase height to accommodate the larger gauge */
+    padding: 10px;
+  }
+  
+  .gauge-box.selected {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    border: 2px solid #f28c8c; /* Pink border for selected state */
+    border-radius: 15px; /* Rounded border */
+  }
+  

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import '../styles/ReportsList.css';
+import '../../styles/HomePage/ReportsList.css';
 
 export const ReportsList = ({ searchQuery }) => {
   const reportsPerPage = 12;
