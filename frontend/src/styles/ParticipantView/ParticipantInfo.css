@@ -6,11 +6,11 @@
     background-color: #333E5A;
     border-radius: 15px;
     padding: 10px 110px;
-    width: 360px; /* Adjusted width */
+    width: 390px; /* Adjusted width */
     height: 120px;
     position: relative;
-    margin-left: 85px; /* Adjust this value to move it more to the left */
-    margin-top: 15px; /* Adjust this value to move it lower */
+    margin-left: 65px; /* Adjust this value to move it more to the left */
+    margin-top: 12px; /* Adjust this value to move it lower */
   }
   
   .participant-info-wrapper {
@@ -90,4 +90,6 @@
     margin-bottom: 5px;
     border-bottom: 1px solid white; /* Adds a white underline */
   }
+  
+
   
