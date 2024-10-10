@@ -16,7 +16,7 @@
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
-  margin-top: -10px; /* Optionally, add this to shift it further upwards */
+  margin-top: -10px;
 }
 
 .domain-button {
@@ -38,12 +38,12 @@
   border-radius: 15px;
   padding: 15px;
   margin-bottom: -85px;
-  margin-top: 100px; /* Adjust this value to move the menu up or down */
+  margin-top: 100px;
   height: 300px;
   overflow-y: auto;
-  width: 55%; /* Keeps the compact look */
+  width: 55%;
   margin-left: -10px;
-  margin-right: auto; /* Centers the menu horizontally */
+  margin-right: auto;
 }
 
 .metric-item {
@@ -56,7 +56,7 @@
   justify-content: space-between;
   align-items: center;
   transition: background-color 0.3s ease;
-  position: relative; /* Ensures proper positioning of the arrow */
+  position: relative;
 }
 
 .metric-item:hover {
@@ -69,10 +69,10 @@
 }
 
 .expand-icon {
-  margin-left: auto; /* Aligns the icon to the right */
-  color: #ffffff; /* White color for the icon */
+  margin-left: auto;
+  color: #ffffff;
   font-weight: bold;
-  font-size: 1.2rem; /* Makes the icon larger */
+  font-size: 1.2rem;
 }
 
 .metric-name {
@@ -80,16 +80,58 @@
 }
 
 .metric-issues {
-  text-decoration: none; /* Remove underline */
+  text-decoration: none;
   color: #c4e5d8;
-  margin-top: 5px; /* Adds some space between the metric name and issue text */
-  font-size: 0.9rem; /* Adjust the font size for better readability */
+  margin-top: 5px;
+  font-size: 0.9rem;
 }
 
 .metric-issues.clickable {
   cursor: pointer;
   text-decoration: underline;
 }
+
+/* Actions menu styling */
+
+.actions-menu {
+  background-color: #2a4d64;
+  border-radius: 15px;
+  padding: 15px;
+  position: absolute;
+  top: 145px;
+  left: 60%; /* Positions it to the right of the metrics menu */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  width: 190px;
+}
+
+.action-item {
+  color: #ffffff;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-item:hover {
+  background-color: #4b8db9;
+  color: #ffffff;
+  border-radius: 8px; /* Ensure rounded corners on hover */
+}
+
+.action-item.selected {
+  font-weight: bold;
+  border-radius: 8px; /* Rounded corners when selected */
+}
+
+.action-tick {
+  color: #2ecc71; /* Adjustable color for the tick */
+  width: 16px; /* Fixed width for consistency */
+  height: 16px; /* Fixed height for consistency */
+  margin-left: 8px; /* Space between text and tick */
+}
+
 
 /* Buttons styling */
 .buttons {
@@ -102,37 +144,78 @@
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px; /* Ensure both buttons have the same padding */
+  padding: 10px 20px;
   cursor: pointer;
-  width: 28%; /* Make both buttons take up the same width */
+  width: 28%;
 }
 
 .discard-button {
-  background-color: #a56a43; /* Brown background for the discard button */
+  background-color: #a56a43;
 }
 
 .save-button {
-  background-color: #1f7442; /* Green background for the save button */
+  background-color: #1f7442;
 }
 
-.actions-menu {
-  background-color: #2a4d64;
-  border-radius: 8px;
-  padding: 10px;
-  position: absolute;
-  left: calc(100% + 8px); /* Positions the menu to the right of the metric item */
-  top: 0; /* Aligns the top of the action menu with the top of the metric item */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  width: 200px;
+
+
+.metrics-info-box {
+  background-color: #333e5a;
+  border-radius: 15px;
+  padding: 10px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 87%;
+  height: 10%;
+  position: absolute; /* Allows positioning without shifting other elements */
+  top: 60px; /* Adjust this value to move it up or down */
+  left: 2%; /* Adjust this value to move it left or right */
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  z-index: 5; /* Ensure it stays above other components */
 }
 
-.action-item {
-  color: #c4e5d8;
-  padding: 5px 0;
+
+.info-text {
+  margin-left: 10px;
+}
+
+.info-icon {
   cursor: pointer;
+  color: #ffffff;
+  margin-left: 20px;
+  
 }
 
-.action-item:hover {
-  color: #ffffff;
+.metrics-info-popup {
+  position: absolute;
+  top: 75px; /* Adjust to move the popup up or down relative to the info box */
+  left: 2px; /* Adjust to move the popup left or right */
+  background-color: #d0d4e6;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  width: 560px; /* Adjust width */
+  height: 300px;
+}
+
+
+.metrics-info-popup h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333e5a;
+}
+
+.metrics-info-popup p {
+  font-size: 1rem;
+  margin-bottom: -10px;
+  color: #333e5a;
+}
+
+.metrics-info-popup li {
+  color: #000000; /* Change the color of the list items to black */
 }

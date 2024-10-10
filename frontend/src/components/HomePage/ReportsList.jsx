@@ -87,18 +87,18 @@ export const ReportsList = ({ searchQuery }) => {
 
   const totalPages = Math.ceil(filteredReports.length / reportsPerPage);
 
-  const toggleSelectReport = (reportId) => {
-    if (reportId === "all") {
+  const toggleSelectReport = (reportKey) => {
+    if (reportKey === "all") {
       if (selectedReports.length === filteredReports.length) {
         setSelectedReports([]);
       } else {
-        setSelectedReports(filteredReports.map(report => report.id));
+        setSelectedReports(filteredReports.map(report => `${report.id}-${report.date}`));
       }
     } else {
-      if (selectedReports.includes(reportId)) {
-        setSelectedReports(selectedReports.filter(id => id !== reportId));
+      if (selectedReports.includes(reportKey)) {
+        setSelectedReports(selectedReports.filter(key => key !== reportKey));
       } else {
-        setSelectedReports([...selectedReports, reportId]);
+        setSelectedReports([...selectedReports, reportKey]);
       }
     }
   };
@@ -155,34 +155,37 @@ export const ReportsList = ({ searchQuery }) => {
 
       {currentReports.length > 0 ? (
         <div className="reports-list">
-          {currentReports.map((report) => (
-            <div key={`${report.id}-${report.date}`} className="report-item">
-              <div className="checkbox-container">
-                <input
-                  type="checkbox"
-                  className="report-checkbox"
-                  checked={selectedReports.includes(report.id)}
-                  onChange={() => toggleSelectReport(report.id)}
-                />
-              </div>
-              <div className="report-bar">
-                <div className="id">{report.id}</div>
-                <div className="progress-section">
-                  <div className="progress-bar">
-                    <div
-                      className="progress"
-                      style={{
-                        width: `${report.score}%`,
-                        backgroundColor: report.score > 66 ? 'green' : report.score > 33 ? 'orange' : 'red',
-                      }}
-                    ></div>
-                  </div>
-                  <div className="percentage">{report.score.toFixed(2)}%</div>
+          {currentReports.map((report) => {
+            const reportKey = `${report.id}-${report.date}`;
+            return (
+              <div key={reportKey} className="report-item">
+                <div className="checkbox-container">
+                  <input
+                    type="checkbox"
+                    className="report-checkbox"
+                    checked={selectedReports.includes(reportKey)}
+                    onChange={() => toggleSelectReport(reportKey)}
+                  />
                 </div>
+                <div className="report-bar">
+                  <div className="id">{report.id}</div>
+                  <div className="progress-section">
+                    <div className="progress-bar">
+                      <div
+                        className="progress"
+                        style={{
+                          width: `${report.score}%`,
+                          backgroundColor: report.score > 66 ? 'green' : report.score > 33 ? 'orange' : 'red',
+                        }}
+                      ></div>
+                    </div>
+                    <div className="percentage">{report.score.toFixed(2)}%</div>
+                  </div>
+                </div>
+                <div className="date">{report.date}</div>
               </div>
-              <div className="date">{report.date}</div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <div className="no-reports-found">
