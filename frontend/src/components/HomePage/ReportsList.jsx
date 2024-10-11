@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/HomePage/ReportsList.css';
 
 export const ReportsList = ({ searchQuery }) => {
@@ -6,6 +7,7 @@ export const ReportsList = ({ searchQuery }) => {
   const [selectedReports, setSelectedReports] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOption, setSortOption] = useState(0); // 0: date asc, 1: date desc, 2: name asc, 3: name desc
+  const navigate = useNavigate();
 
   const initialReports = useMemo(() => [
     { id: 'p01', score: 5.86, date: '04/05/2024' },
@@ -88,7 +90,7 @@ export const ReportsList = ({ searchQuery }) => {
   const totalPages = Math.ceil(filteredReports.length / reportsPerPage);
 
   const toggleSelectReport = (reportKey) => {
-    if (reportKey === "all") {
+    if (reportKey === 'all') {
       if (selectedReports.length === filteredReports.length) {
         setSelectedReports([]);
       } else {
@@ -114,6 +116,11 @@ export const ReportsList = ({ searchQuery }) => {
   const startIndex = (currentPage - 1) * reportsPerPage;
   const currentReports = filteredReports.slice(startIndex, startIndex + reportsPerPage);
 
+  // Function to handle clicking a report item
+  const handleReportClick = () => {
+    navigate('/participant-view');
+  };
+
   return (
     <div className="reports-list-container">
       <div className="reports-header-section">
@@ -121,7 +128,7 @@ export const ReportsList = ({ searchQuery }) => {
           <input
             type="checkbox"
             className="select-all-checkbox"
-            onChange={() => toggleSelectReport("all")}
+            onChange={() => toggleSelectReport('all')}
             checked={selectedReports.length === filteredReports.length}
           />
           <button className="sort-button" onClick={handleSort}>
@@ -158,8 +165,12 @@ export const ReportsList = ({ searchQuery }) => {
           {currentReports.map((report) => {
             const reportKey = `${report.id}-${report.date}`;
             return (
-              <div key={reportKey} className="report-item">
-                <div className="checkbox-container">
+              <div
+                key={reportKey}
+                className="report-item"
+                onClick={handleReportClick} // Add the click handler here
+              >
+                <div className="checkbox-container" onClick={(e) => e.stopPropagation()}>
                   <input
                     type="checkbox"
                     className="report-checkbox"
