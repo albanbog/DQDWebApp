@@ -67,3 +67,9 @@ class WellnessAdmin(admin.ModelAdmin):
 admin.site.register(Wellness, WellnessAdmin)
 
 admin.site.register(Reporting)
+
+
+@admin.register(FileMetadata)
+class FileMetadataAdmin(admin.ModelAdmin):
+    list_display = ('file_name', 'expected_records')
+    search_fields = ('file_name',)

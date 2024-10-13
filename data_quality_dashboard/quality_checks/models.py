@@ -342,3 +342,11 @@ class Reporting(models.Model):
         return f"Reporting for {self.participant} on {self.date}"
 
 
+class FileMetadata(models.Model):
+    file_name = models.CharField(max_length=255, unique=True)
+    expected_records = models.IntegerField()
+    expected_variables = models.JSONField()  # Stores the expected variables and their details
+    constraints = models.JSONField(null=True, blank=True)  # Optional constraints like uniform_time_format
+
+    def __str__(self):
+        return self.file_name
