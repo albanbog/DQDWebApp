@@ -3,7 +3,7 @@ import React from 'react';
 import SemicircleGauge from './SemicircleGauge';
 import '../../styles/ParticipantView/GaugesSection.css';
 
-const GaugesSection = ({ selectedGauge, setSelectedGauge }) => {
+const GaugesSection = ({ selectedGauge, setSelectedGauge, score }) => {
   const scores = {
     Integrity: 60.23,
     Completeness: 49.31,
@@ -11,8 +11,8 @@ const GaugesSection = ({ selectedGauge, setSelectedGauge }) => {
     Accuracy: 81.23,
   };
 
-  // Calculate the overall score as an average of the other four scores
-  const overallScore = parseFloat(
+  // Use the report's overall score if provided, otherwise calculate the average
+  const overallScore = score || parseFloat(
     (
       (scores.Integrity +
         scores.Completeness +

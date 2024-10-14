@@ -117,9 +117,10 @@ export const ReportsList = ({ searchQuery }) => {
   const currentReports = filteredReports.slice(startIndex, startIndex + reportsPerPage);
 
   // Function to handle clicking a report item
-  const handleReportClick = () => {
-    navigate('/participant-view');
-  };
+  // src/components/HomePage/ReportsList.jsx
+  const handleReportClick = (report) => {
+  navigate('/participant-view', { state: { report } });
+};
 
   return (
     <div className="reports-list-container">
@@ -168,7 +169,8 @@ export const ReportsList = ({ searchQuery }) => {
               <div
                 key={reportKey}
                 className="report-item"
-                onClick={handleReportClick} // Add the click handler here
+                onClick={() => handleReportClick(report)}
+ 
               >
                 <div className="checkbox-container" onClick={(e) => e.stopPropagation()}>
                   <input

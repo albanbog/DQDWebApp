@@ -1,8 +1,7 @@
+// src/components/ParticipantView/TreeSection.jsx
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import '../../styles/ParticipantView/TreeSection.css';
 
-// Move these outside the component
-const rootNode = { name: "Participant ID: p04", value: 60 };
 const folderData = [
   { name: "fitbit", value: 50, expandable: true },
   { name: "pmsys", value: 0, expandable: false },
@@ -52,7 +51,7 @@ const Node = React.forwardRef(({ name, value, isSelected, onClick }, ref) => (
   </div>
 ));
 
-const TreeSection = ({ selectedGauge }) => {
+const TreeSection = ({ selectedGauge, participantId, score }) => {
   const [selectedFolder, setSelectedFolder] = useState('fitbit');
   const [selectedLeaf, setSelectedLeaf] = useState(null);
   const [connections, setConnections] = useState([]);
@@ -60,6 +59,9 @@ const TreeSection = ({ selectedGauge }) => {
   const rootNodeRef = useRef(null);
   const folderRefs = useRef({});
   const leafRefs = useRef({});
+
+  // Dynamically use participantId and score in the root node
+  const rootNode = { name: `Participant ID: ${participantId}`, value: score };
 
   const calculateConnections = useCallback(() => {
     const newConnections = [];
@@ -124,7 +126,7 @@ const TreeSection = ({ selectedGauge }) => {
           <Node
             ref={rootNodeRef}
             name={rootNode.name}
-            value={rootNode.value}
+            value={rootNode.value} // Root node uses the report score
             isSelected={false}
             onClick={() => {}}
           />
@@ -155,23 +157,23 @@ const TreeSection = ({ selectedGauge }) => {
         </div>
       </div>
       <svg className="connection-lines">
-      {connections.map((connection, index) => (
-        <path
-          key={index}
-          data-type={connection.type}
-          d={`M${connection.x1},${connection.y1} C${connection.x1 + 50},${connection.y1} ${connection.x2 - 50},${connection.y2} ${connection.x2},${connection.y2}`}
-          stroke={
-            (connection.type === 'root-to-folder' && connection.folderName === selectedFolder) ||
-            (connection.type === 'folder-to-leaf' && connection.leafName === selectedLeaf)
-              ? "yellow"
-              : "white"
-          }
-          strokeWidth="2"
-          fill="none"
-        />
-      ))}
-    </svg>
-  </div>
+        {connections.map((connection, index) => (
+          <path
+            key={index}
+            data-type={connection.type}
+            d={`M${connection.x1},${connection.y1} C${connection.x1 + 50},${connection.y1} ${connection.x2 - 50},${connection.y2} ${connection.x2},${connection.y2}`}
+            stroke={
+              (connection.type === 'root-to-folder' && connection.folderName === selectedFolder) ||
+              (connection.type === 'folder-to-leaf' && connection.leafName === selectedLeaf)
+                ? "yellow"
+                : "white"
+            }
+            strokeWidth="2"
+            fill="none"
+          />
+        ))}
+      </svg>
+    </div>
   );
 };
 
